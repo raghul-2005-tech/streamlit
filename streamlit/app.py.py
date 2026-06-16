@@ -1,5 +1,6 @@
 import streamlit as st
-from keras.models import load_model
+import tensorflow as tf
+from tensorflow.keras.models import load_model # Safer import for tensorflow-cpu
 from PIL import Image, ImageOps
 import numpy as np
 
@@ -13,9 +14,10 @@ np.set_printoptions(suppress=True)
 
 # Cache the model so it doesn't reload on every user interaction
 @st.cache_resource
+
 def init_model():
-    model = load_model("keras_Model.h5", compile=False)
-    # Strip newline characters while reading labels
+    # Use tf.keras to prevent internal backend errors
+    model = tf.keras.models.load_model("keras_Model.h5", compile=False)
     with open("labels.txt", "r") as f:
         class_names = [line.strip() for line in f.readlines()]
     return model, class_names
