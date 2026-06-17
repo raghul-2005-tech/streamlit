@@ -17,7 +17,7 @@ np.set_printoptions(suppress=True)
 
 def init_model():
     # Use tf.keras to prevent internal backend errors
-    model = tf.keras.models.load_model("keras_Model.h5", compile=False)
+    model = tf.keras.models.load_model("keras_model.h5", compile=False)
     with open("labels.txt", "r") as f:
         class_names = [line.strip() for line in f.readlines()]
     return model, class_names
